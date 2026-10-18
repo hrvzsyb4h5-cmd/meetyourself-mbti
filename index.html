@@ -297,6 +297,57 @@ body[data-view=home] .brand-room{color:var(--on-night-muted)}
 .balance-ends span:last-child{text-align:right}
 .report-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:32px 0 0}
 
+/* ---------- detection: 如何识破你 ---------- */
+.detect{margin:0 0 26px;border-radius:26px;padding:26px 24px;background:linear-gradient(140deg,#f4effd,#eae2f9 60%,#f6f0ff);
+ grid-column:1/-1;margin:0;
+ border:1px solid #ddd2f2;box-shadow:var(--shadow-soft)}
+.detect-head{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.detect-head svg{width:23px;height:23px;color:var(--violet-deep);flex-shrink:0}
+.detect-head h3{margin:0;font-family:var(--serif);font-size:19px;font-weight:700;letter-spacing:.02em;color:var(--ink)}
+.detect-head .detect-sub{margin-left:auto;font-size:11.5px;letter-spacing:1.5px;color:var(--muted)}
+.detect-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.detect-card{background:#fffdfa;border:1px solid #0000000a;border-radius:20px;padding:22px 22px 18px;box-shadow:0 12px 30px -22px rgba(60,40,100,.4)}
+.detect-card .dc-label{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.04em}
+.detect-num{display:flex;align-items:baseline;gap:3px;margin:10px 0 14px}
+.detect-num strong{font-family:var(--latin);font-size:52px;font-weight:700;line-height:1;color:var(--ink);font-style:italic}
+.detect-num span{font-size:19px;font-weight:600;color:var(--muted)}
+.detect-bar{height:11px;border-radius:99px;background:#e9e4f1;overflow:hidden;margin-bottom:13px}
+.detect-bar i{display:block;height:100%;border-radius:99px;width:0;animation:detectGrow 1s var(--ease) .25s forwards}
+.detect-bar.conf i{background:linear-gradient(90deg,#4c34b8,var(--violet))}
+.detect-bar.leak i{background:linear-gradient(90deg,#b8883a,var(--gold))}
+@keyframes detectGrow{from{width:0}to{width:var(--w)}}
+.detect-card .dc-note{font-size:12.5px;line-height:1.75;color:var(--muted);margin:0;min-height:44px}
+.detect-card .dc-note b{color:var(--violet-deep);font-weight:600}
+.detect-card .dc-note em{font-style:normal;color:#a77c2e;font-weight:600}
+.detect-big{grid-column:1/-1;background:#fffdfa;border:1px solid #0000000a;border-radius:20px;padding:22px 26px 20px;text-align:center;
+ box-shadow:0 12px 30px -22px rgba(60,40,100,.4)}
+.detect-big .db-label{font-size:13px;letter-spacing:3px;color:var(--muted);margin-bottom:8px}
+.detect-big .db-name{font-family:var(--serif);font-size:clamp(26px,4vw,36px);font-weight:700;color:var(--violet-deep);
+ letter-spacing:.08em;line-height:1.2;margin:0 0 10px}
+.detect-big .db-name.clean{color:#5a7d5a}
+.detect-big .db-desc{font-size:13.5px;line-height:1.9;color:var(--muted);max-width:560px;margin:0 auto}
+.detect-signals{margin-top:14px}
+.detect-signals summary{min-height:36px;display:inline-flex;align-items:center;font-size:12.5px;color:var(--violet-deep);
+ font-weight:600;list-style:none;cursor:pointer;letter-spacing:.02em}
+.detect-signals summary::-webkit-details-marker{display:none}
+.detect-signals summary::before{content:'＋';margin-right:7px;font-size:11px}
+.detect-signals[open] summary::before{content:'－'}
+.detect-signals ul{margin:8px 0 0;padding:0;list-style:none;text-align:left}
+.detect-signals li{font-size:12.5px;line-height:1.8;color:var(--muted);padding:7px 0 7px 20px;position:relative;border-bottom:1px dashed #e7e0f0}
+.detect-signals li:last-child{border-bottom:0}
+.detect-signals li::before{content:'';position:absolute;left:4px;top:15px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.detect-signals li.clean::before{background:#8aa68a}
+.detect-foot{margin:14px 2px 0;font-size:11.5px;line-height:1.7;color:var(--muted);text-align:center}
+@media (max-width:620px){
+ .detect{padding:20px 16px;border-radius:22px}
+ .detect-grid{grid-template-columns:1fr}
+ .detect-num strong{font-size:44px}
+}
+@media (min-width:901px){
+ .report-grid .career-panel{grid-column:2;grid-row:1}
+ .report-grid .detect{grid-column:1/-1;grid-row:2}
+}
+
 /* ---------- dialogs / toast ---------- */
 .dialog-backdrop{position:fixed;inset:0;z-index:50;background:rgba(21,16,29,.55);backdrop-filter:blur(6px);
  display:grid;place-items:center;padding:22px;overflow:auto;animation:fadeIn .2s ease both}
@@ -361,6 +412,43 @@ body[data-view=home] .brand-room{color:var(--on-night-muted)}
 .character-window.portrait-normalized{width:var(--cw,100%);height:auto;aspect-ratio:320/340;flex-shrink:0}
 .portrait-normalized .portrait-crop{position:absolute;display:block;overflow:hidden}
 .portrait-normalized .portrait-crop>img{position:absolute;display:block;max-width:none;height:auto;user-select:none;pointer-events:none}
+</style>
+
+<style id="mobile-type-selector">
+/* Keep the selected portrait and all 16 options in one card on phones. */
+@media(max-width:620px){
+ body[data-view=home] .spread{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:18px;background:var(--card);border:1px solid #0000000d;border-radius:22px;box-shadow:var(--shadow-card);scroll-margin-top:12px}
+ body[data-view=home] .spread .stage{width:100%;min-width:0}
+ body[data-view=home] .spread .oracle{width:100%;max-width:none}
+ body[data-view=home] .spread .oracle::before{display:none}
+ body[data-view=home] .spread .oracle-frame{display:flex;align-items:center;justify-content:flex-start;gap:18px;text-align:left;padding:0 0 14px;min-height:112px;background:transparent;border:0;outline:0;border-radius:0;box-shadow:none}
+ body[data-view=home] .spread .selected-character{flex:0 0 88px;width:88px;max-width:88px;margin:0}
+ body[data-view=home] .spread .selected-character .character-window{--cw:100%;--ch:auto}
+ body[data-view=home] .spread .character-caption{min-width:0;align-items:flex-start;margin:0;gap:6px}
+ body[data-view=home] .spread .character-caption strong{font-size:30px;line-height:1.15}
+ body[data-view=home] .spread .character-caption span{font-size:13px;line-height:1.65;color:var(--muted)}
+ body[data-view=home] .spread .cast{display:none}
+ body[data-view=home] .spread .entry{width:100%;min-width:0;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;justify-content:flex-start}
+ body[data-view=home] .spread .entry h2{font-size:20px;line-height:1.45;margin:0 0 6px;color:var(--ink)}
+ body[data-view=home] .spread .entry-note{font-size:13px;line-height:1.65;margin:0 0 14px}
+ body[data-view=home] .spread .type-picker{gap:8px;width:100%}
+ body[data-view=home] .spread .type-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+ body[data-view=home] .spread .type-button{min-width:0;min-height:44px;font-size:14px;letter-spacing:.02em;border-radius:10px}
+ body[data-view=home] .spread .unknown-type{min-height:44px;margin:4px 0 0;font-size:12px}
+ body[data-view=home] .spread .start-btn{min-height:48px;margin-top:6px}
+ body[data-view=home] .spread .error:empty{display:none}
+ body[data-view=home] .spread .answer-guidance{font-size:12px;line-height:1.65;margin-top:10px}
+ body[data-view=home] .spread .entry details{margin-top:10px}
+}
+@media(max-width:360px){
+ body[data-view=home] .spread{padding:16px}
+ body[data-view=home] .spread .oracle-frame{gap:14px;min-height:104px;padding-bottom:12px}
+ body[data-view=home] .spread .selected-character{flex-basis:80px;width:80px;max-width:80px}
+ body[data-view=home] .spread .entry h2{font-size:19px}
+ body[data-view=home] .spread .type-grid{gap:6px}
+ body[data-view=home] .spread .type-picker{gap:6px}
+ body[data-view=home] .spread .type-button{font-size:13px}
+}
 </style>
 </head>
 <body data-view="home">
@@ -536,11 +624,11 @@ function home(){
  +'<a class="cta" href="#previous-type"><span>选择上次的类型</span><span class="cta-arrow" aria-hidden="true">↓</span></a>'
  +'<ol class="steps"><li><i>01</i>原来的类型</li><li><i>02</i>生活里的选择</li><li><i>03</i>这次的自己</li></ol>'
  +'</section>'
- +'<section class="spread">'
+ +'<section class="spread" id="previous-type">'
  +'<div class="stage"><div class="oracle"><div class="oracle-frame"><div class="selected-character">'+characterMarkup(active,'stage')+'</div>'
  +'<div class="character-caption" aria-live="polite"><strong>'+active+'</strong><span>'+(state.previous&&state.previous!=='unknown'?'你上次的结果':'选择一个类型，看看熟悉的自己')+'</span></div></div>'
  +'<div class="cast" aria-hidden="true">'+supporting.map(type=>'<figure class="cast-fig">'+characterMarkup(type,'cast')+'<figcaption>'+type+'</figcaption></figure>').join('')+'</div></div>'
- +'<section class="entry card" id="previous-type" aria-label="选择原结果并开始测试">'
+ +'<section class="entry card" aria-label="选择原结果并开始测试">'
  +'<h2>从上次的结果开始。</h2>'
  +'<p class="entry-note">选择你在 16Personalities 测出的四字母类型，完成后查看这次的对照。</p>'
  +'<div class="type-picker" role="group" aria-label="之前的四字母类型">'+picker+'</div>'
@@ -597,6 +685,74 @@ function question(){
 }
 document.addEventListener('keydown',e=>{if(keyHandler)keyHandler(e);});
 
+const DETECT_DIM_NAMES=['精力来源','信息偏好','判断方式','安排风格'];
+const DETECT_EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+function buildDetection(answers,r){
+ const a=id=>answers[id];
+ // 12 个破绽信号：6 个自陈信号 + 6 个作答行为信号
+ const signals=[];
+ const add=(key,text)=>signals.push({key,text});
+ if(a(57)===3)add('should','社交题里，你承认「觉得自己应该更主动」会影响选择。');
+ if(a(58)===3)add('image','你承认有时会选「看起来更聪明或专业」的做法。');
+ if(a(59)===2||a(59)===3)add('image','你承认有时会选「看起来更讲道理／更体贴」的回答。');
+ if(a(60)===3)add('should','安排题里，「觉得自己应该更自律」影响了你的选择。');
+ if(a(61)===2||a(61)===3)add('ideal','整份问卷你最常依据「希望成为的样子」或「某个类型会作的选择」作答。');
+ if(a(61)===4)add('drift','你承认不同题目采用了不同的判断依据。');
+ let extreme=0;
+ for(let id=1;id<=48;id++){const v=a(id);if(v===0||v===4)extreme++;}
+ const extremeRatio=extreme/48;
+ const extremeDims=[];
+ r.dimensions.forEach((d,i)=>{let sign=0,sameSign=true,allExtreme=true,valid=0;
+  for(let j=0;j<12;j++){const id=i*12+j+1,v=a(id);if(!Number.isInteger(v)||v<0||v>4){allExtreme=false;continue;}
+   const value=(2-v)*(j%2===0?1:-1);valid++;
+   if(value===0){allExtreme=false;continue;}
+   if(!sign)sign=value>0?1:-1;else if((value>0?1:-1)!==sign)sameSign=false;
+   if(Math.abs(value)!==2)allExtreme=false;}
+  if(valid&&sign&&sameSign&&allExtreme)extremeDims.push(i);});
+ if(extremeRatio>=0.72)add('extreme','48 道正题里有 '+extreme+' 道选了「明显」倾向，全程几乎没有犹豫。');
+ extremeDims.forEach(i=>add('extreme','「'+DETECT_DIM_NAMES[i]+'」的 12 道题全部选了同一方向的「明显」，整齐得不像自然反应。'));
+ let flips=0;
+ for(let k=0;k<4;k++){const x=a(49+k*2),y=a(50+k*2);if(Number.isInteger(x)&&Number.isInteger(y)&&Math.abs(x-y)>=3)flips++;}
+ if(flips>=2)add('flip','情境对照题中有 '+flips+' 对答案，在两种身份下大幅翻转。');
+ const flaw=Math.min(signals.length,12);
+ const flawPct=Math.round(flaw/12*100);
+ // 把握度：方向强度 + 果断比例 + 情境稳定 - 难以代入 - 接近中间的维度
+ const avgStr=r.dimensions.reduce((s,d)=>s+Math.abs(d.mean),0)/4;
+ let lean=0;for(let id=1;id<=48;id++){const v=a(id);if(v===0||v===1||v===3||v===4)lean++;}
+ let stable=0;for(let k=0;k<4;k++){const x=a(49+k*2),y=a(50+k*2);if(Number.isInteger(x)&&Number.isInteger(y)&&x===y)stable++;}
+ let hard=0;for(let id=1;id<=48;id++)if(a(id)===5)hard++;
+ const close=r.dimensions.filter(d=>d.close).length;
+ const conf=Math.max(35,Math.min(97,Math.round(42+avgStr*28+(lean/48)*18+(stable/4)*7-hard*1.2-close*3)));
+ // 最大破绽：按信号归组，取痕迹最多的一组
+ const groupDefs=[
+  {key:'ideal',name:'理想投影',desc:'部分答案来自「希望自己成为的样子」，理想形象盖过了最近半年的真实反应。'},
+  {key:'image',name:'形象管理',desc:'你替「看起来更聪明、更得体」的自己答了几题，真实偏好被让到了一边。'},
+  {key:'should',name:'应该框架',desc:'「应该更主动／更自律」的念头替你做了选择。这不是撒谎，但会盖住天性。'},
+  {key:'extreme',name:'用力过猛',desc:()=>{const di=extremeDims[0];return di===undefined?'几乎每题都选「明显」，没有犹豫也没有例外——用力过猛本身就是痕迹。':'你在「'+DETECT_DIM_NAMES[di]+'」上题题都选得很满，反而最显眼，真实的人很少这么整齐。';}},
+  {key:'flip',name:'随境而变',desc:'同一个处境换个身份，答案就大幅翻转——固定的四字母反而装不住你。'},
+  {key:'drift',name:'依据漂移',desc:'不同题目你换了不同的判断依据，画像里有几处对不上，把握度因此下降。'}
+ ];
+ const groups=groupDefs.map(g=>({...g,score:signals.filter(s=>s.key===g.key).length})).filter(g=>g.score>0).sort((x,y)=>y.score-x.score);
+ const big=!groups.length?{name:'藏得不错',clean:true,desc:'没有看到明显的美化痕迹，这张画像基本是你自己画的。当然，这仍不是准确率证明。'}
+  :{name:groups[0].name,clean:false,desc:typeof groups[0].desc==='function'?groups[0].desc():groups[0].desc};
+ return {conf,flaw,flawPct,signals:signals.slice(0,12),big};
+}
+function detectionMarkup(det){
+ return '<section class="detect"><div class="detect-head">'+DETECT_EYE+'<h3>拆解：我们如何识破你</h3><span class="detect-sub">DECODE · 61</span></div>'
+ +'<div class="detect-grid">'
+ +'<div class="detect-card"><p class="dc-label">把握度</p><div class="detect-num"><strong>'+det.conf+'</strong><span>%</span></div>'
+ +'<div class="detect-bar conf"><i style="--w:'+det.conf+'%"></i></div>'
+ +'<p class="dc-note">基于作答一致性，对你真实画像的把握。</p></div>'
+ +'<div class="detect-card"><p class="dc-label">破绽值</p><div class="detect-num"><strong>'+det.flawPct+'</strong><span>%</span></div>'
+ +'<div class="detect-bar leak"><i style="--w:'+det.flawPct+'%"></i></div>'
+ +'<p class="dc-note">理想化作答痕迹 · <em>'+det.flaw+' / 12</em></p></div>'
+ +'<div class="detect-big"><p class="db-label">最大破绽</p><p class="db-name'+(det.big.clean?' clean':'')+'">'+escape(det.big.name)+'</p><p class="db-desc">'+escape(det.big.desc)+'</p>'
+ +'<details class="detect-signals"><summary>'+(det.signals.length?'识破信号明细（'+det.signals.length+' 条）':'为什么没有发现信号？')+'</summary>'
+ +(det.signals.length?'<ul>'+det.signals.map(s=>'<li>'+escape(s.text)+'</li>').join('')+'</ul>'
+  :'<ul><li class="clean">补充题里你没有选择「应该／理想形象」类选项，正题作答也没有过度整齐。</li><li class="clean">情境对照题的答案保持了稳定，没有大幅翻转。</li></ul>')
+ +'</details></div></div>'
+ +'<p class="detect-foot">基于作答模式的趣味提示，用于自我核对，不是测谎结论，也不会改变你的类型结果。</p></section>';
+}
 function report(){
  const r=E.analyze(state.answers,state.clarifications);if(!TYPES.includes(r.type))throw new Error('Unexpected result type');
  const previous=state.previous==='unknown'?null:state.previous;
@@ -635,6 +791,7 @@ function report(){
  +(r.reference?'<details class="proof"><summary>查看同分候选</summary><p>同分候选：'+r.candidates.join('、')+'。本页按固定排列展示第一个候选；不是随机判型，也不表示它比其他同分候选更准确。</p></details>':'')
  +'<details class="proof"><summary>关于本次结果</summary><p>本工具使用原创61题规则，目前用于性格探索。四字母由前48题的方向汇总；对照题和动机题提供补充解释，不自动反转类型。</p><p>结果只在16个标准类型中匹配。先参考主问卷的分数方向；完全持平时再参考情境题与已确认的偏好。仍然同分时，展示固定排列中的一个参考候选并标明同分；有效回答不足时会提示。当前规则尚未经正式信效度验证，不是准确率或测谎概率。'+(r.insufficient.length?'本次部分维度有效回答较少，建议回看答案后再核对。':'')+'</p></details>'
  +'</section>'
+ +detectionMarkup(buildDetection(state.answers,r))
  +'<section class="panel career-panel"><h3>适合的职业方向</h3>'
  +'<p class="career-label">核心匹配</p><div class="career-tags">'+(careers[r.type]?.core||[]).map(t=>'<span class="career-tag core">'+escape(t)+'</span>').join('')+'</div>'
  +'<p class="career-label">延伸方向</p><div class="career-tags">'+(careers[r.type]?.more||[]).map(t=>'<span class="career-tag">'+escape(t)+'</span>').join('')+'</div>'
